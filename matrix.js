@@ -1,6 +1,6 @@
 function generateMatrices() {
-    createMatrix('The First Matrix', 'matrix1', document.getElementById('matrix1Rows').value, document.getElementById('matrix1Cols').value);
-    createMatrix('The Second Matrix','matrix2', document.getElementById('matrix2Rows').value, document.getElementById('matrix2Cols').value);
+    createMatrix('The 1st Matrix', 'matrix1', document.getElementById('matrix1Rows').value, document.getElementById('matrix1Cols').value);
+    createMatrix('The 2nd Matrix','matrix2', document.getElementById('matrix2Rows').value, document.getElementById('matrix2Cols').value);
 }
 
 const createMatrix = (title, containerId, rows, cols) => {
@@ -51,7 +51,6 @@ const showResult = (title, containerId, rows, cols, dataArray) => {
 };
 
 const showResult2D = (title, containerId, dataArray) => {
-
     let container = document.getElementById(containerId);
     container.innerHTML = ''; 
     let table = document.createElement('table');
@@ -143,11 +142,12 @@ const getMatrixData2D = function (matrixId) {
     for (let i = 0; i < rows; i++) {
         let rowData = [];
         for (let j = 0; j < cols; j++) {
+            // Calculate index in the flat list of inputs
             let index = i * cols + j;
             if (index < inputs.length) {
                 rowData.push(parseInt(inputs[index].value, 10));
             } else {
-                rowData.push(0);
+                rowData.push(0); // Default value if input is missing
             }
         }
         matrixData.push(rowData);
@@ -155,32 +155,33 @@ const getMatrixData2D = function (matrixId) {
     return matrixData;
 };
 
+
+// Add your matrix calculation functions here
+// The functions must check the posibility of calculation too.
 function addMatrices(matrix1, matrix2){ 
-	
     let sum_matrix = []; 
-for (let i = 0; i < matrix1.length; i++) { 
-    let row = []; 
-    for (let j = 0; j < matrix1[i].length; j++) { 
-        row.push(matrix1[i][j] + matrix2[i][j]); 
+    for (let i = 0; i < matrix1.length; i++) { 
+        let row = []; 
+        for (let j = 0; j < matrix1[i].length; j++) { 
+            row.push(matrix1[i][j] + matrix2[i][j]); 
+        } 
+        sum_matrix.push(row); 
     } 
-    sum_matrix.push(row); 
-} 
-return sum_matrix;
-
-}
-const subtractMatrices = function (matrix1, matrix2) { 
-
-    let sum_matrix = []; 
-for (let i = 0; i < matrix1.length; i++) { 
-    let row = []; 
-    for (let j = 0; j < matrix1[i].length; j++) { 
-        row.push(matrix1[i][j] - matrix2[i][j]); 
-    } 
-    sum_matrix.push(row); 
-} 
-return sum_matrix; 
-
+    return sum_matrix;
 };
+
+const subtractMatrices = function (matrix1, matrix2) { 
+    let sum_matrix = []; 
+    for (let i = 0; i < matrix1.length; i++) { 
+        let row = []; 
+        for (let j = 0; j < matrix1[i].length; j++) { 
+            row.push(matrix1[i][j] - matrix2[i][j]); 
+        } 
+        sum_matrix.push(row); 
+    } 
+    return sum_matrix;
+};
+
 const multiplyMatrices = (matrix1, matrix2) => { 
     let product_matrix = [];
     
