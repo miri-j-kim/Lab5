@@ -89,34 +89,15 @@ function performOperation(operation) {
 
     let result;
     if (operation === 'add') {
-        if((row1 != row2) || (col1 != col2)){
-            check = 0;
-            alert('Error: Incompatible dimensions for matrix addition');
-
-        }
-        else{
-            result = addMatrices(matrix1, matrix2);
-        }
+            result = addMatrices(matrix1, matrix2); 
     }
+
     if (operation === 'subtract') {
-        if((row1 != row2) || (col1 != col2)){
-            check = 0;
-            alert('Error: Incompatible dimensions for matrix subtraction');
-
-        }
-        else{
             result = subtractMatrices(matrix1, matrix2); 
-        }
     }
+    
     if (operation === 'multiply') {
-        if(col1 != row2){
-            check = 0;
-            alert('Error: Incompatible dimensions for matrix Multiplication');
-
-        }
-        else{
             result = multiplyMatrices(matrix1, matrix2); 
-        }
     }
 
     if(check){
@@ -158,7 +139,12 @@ const getMatrixData2D = function (matrixId) {
 
 // Add your matrix calculation functions here
 // The functions must check the posibility of calculation too.
-function addMatrices(matrix1, matrix2){ 
+function addMatrices(matrix1, matrix2){
+    if((matrix1.length != matrix2.length) || (matrix1[0].length != matrix2[0].length)){
+        check = 0;
+        alert('Error: Incompatible dimensions for matrix addition');
+    }
+
     let sum_matrix = []; 
     for (let i = 0; i < matrix1.length; i++) { 
         let row = []; 
@@ -170,7 +156,12 @@ function addMatrices(matrix1, matrix2){
     return sum_matrix;
 };
 
-const subtractMatrices = function (matrix1, matrix2) { 
+const subtractMatrices = function (matrix1, matrix2) {
+    if((matrix1.length != matrix2.length) || (matrix1[0].length != matrix2[0].length)){
+        check = 0;
+        alert('Error: Incompatible dimensions for matrix subtraction');
+    }
+
     let sum_matrix = []; 
     for (let i = 0; i < matrix1.length; i++) { 
         let row = []; 
@@ -183,6 +174,11 @@ const subtractMatrices = function (matrix1, matrix2) {
 };
 
 const multiplyMatrices = (matrix1, matrix2) => { 
+    if(matrix1[0].length != matrix2.length || matrix2.length != matrix1[0].length){
+        check = 0;
+        alert('Error: Incompatible dimensions for matrix Multiplication');
+    }
+
     let product_matrix = [];
     
     for (let i = 0; i < matrix1.length; i++) {
