@@ -1,6 +1,6 @@
 function generateMatrices() {
-    createMatrix('The 1st Matrix', 'matrix1', document.getElementById('matrix1Rows').value, document.getElementById('matrix1Cols').value);
-    createMatrix('The 2nd Matrix','matrix2', document.getElementById('matrix2Rows').value, document.getElementById('matrix2Cols').value);
+    createMatrix('The First Matrix', 'matrix1', document.getElementById('matrix1Rows').value, document.getElementById('matrix1Cols').value);
+    createMatrix('The Second Matrix','matrix2', document.getElementById('matrix2Rows').value, document.getElementById('matrix2Cols').value);
 }
 
 const createMatrix = (title, containerId, rows, cols) => {
@@ -51,10 +51,6 @@ const showResult = (title, containerId, rows, cols, dataArray) => {
 };
 
 const showResult2D = (title, containerId, dataArray) => {
-	// we are adding a interactive and dynamically changing aspect to html tables
-    // so using the table from the html file we are making that table interactive and dynamic
-    // the dynamic aspect allows the fixed table structure to be changed by sizing and the as well as changing the
-    // element values of the elements in the table when adding, subtracting, and multiplying the matrices. 
 
     let container = document.getElementById(containerId);
     container.innerHTML = ''; 
@@ -85,21 +81,17 @@ function performOperation(operation) {
     console.log("2nd Matrix", matrix2);
     console.log("Operation", operation);
 
-    // Just a test result
-    // let result = [1, 2, 3, 4, 5, 6, 7, 8];
-    // Call your matrix calculation functions here
-
     let row1 = matrix1.length;
     let row2 = matrix2.length;
     let col1 = matrix1[0].length;
     let col2 = matrix2[0].length;
 
-    let check1 = 1
+    let check = 1
 
     let result;
     if (operation === 'add') {
         if((row1 != row2) || (col1 != col2)){
-            check1 = 0;
+            check = 0;
             alert('Error: Incompatible dimensions for matrix addition');
 
         }
@@ -109,7 +101,7 @@ function performOperation(operation) {
     }
     if (operation === 'subtract') {
         if((row1 != row2) || (col1 != col2)){
-            check1 = 0;
+            check = 0;
             alert('Error: Incompatible dimensions for matrix subtraction');
 
         }
@@ -119,7 +111,7 @@ function performOperation(operation) {
     }
     if (operation === 'multiply') {
         if(col1 != row2){
-            check1 = 0;
+            check = 0;
             alert('Error: Incompatible dimensions for matrix Multiplication');
 
         }
@@ -128,10 +120,7 @@ function performOperation(operation) {
         }
     }
 
-    // For example: if (operation === 'add') { addMatrices(matrix1, matrix2); }
-	// prints suitable messages for impossible situation
-
-    if(check1){
+    if(check){
         showResult2D('The Result', 'matrix3', result);
     }
 }
@@ -154,12 +143,11 @@ const getMatrixData2D = function (matrixId) {
     for (let i = 0; i < rows; i++) {
         let rowData = [];
         for (let j = 0; j < cols; j++) {
-            // Calculate index in the flat list of inputs
             let index = i * cols + j;
             if (index < inputs.length) {
                 rowData.push(parseInt(inputs[index].value, 10));
             } else {
-                rowData.push(0); // Default value if input is missing
+                rowData.push(0);
             }
         }
         matrixData.push(rowData);
@@ -167,9 +155,6 @@ const getMatrixData2D = function (matrixId) {
     return matrixData;
 };
 
-
-// Add your matrix calculation functions here
-// The functions must check the posibility of calculation too.
 function addMatrices(matrix1, matrix2){ 
 	
     let sum_matrix = []; 
@@ -178,22 +163,22 @@ for (let i = 0; i < matrix1.length; i++) {
     for (let j = 0; j < matrix1[i].length; j++) { 
         row.push(matrix1[i][j] + matrix2[i][j]); 
     } 
-    sum_matrix.unshift(row); 
+    sum_matrix.push(row); 
 } 
 return sum_matrix;
 
 }
 const subtractMatrices = function (matrix1, matrix2) { 
 
-	let subtracted_matrix = []; 
-    for (let i = 0; i < matrix1.length; i++) { 
-        let row = []; 
-        for (let j = 0; j < matrix1[i].length; j++) { 
-            row.push(matrix1[i][j] - matrix2[i][j]); 
-        } 
-        subtracted_matrix.unshift(row);
+    let sum_matrix = []; 
+for (let i = 0; i < matrix1.length; i++) { 
+    let row = []; 
+    for (let j = 0; j < matrix1[i].length; j++) { 
+        row.push(matrix1[i][j] - matrix2[i][j]); 
     } 
-    return subtracted_matrix; 
+    sum_matrix.push(row); 
+} 
+return sum_matrix; 
 
 };
 const multiplyMatrices = (matrix1, matrix2) => { 
@@ -208,7 +193,7 @@ const multiplyMatrices = (matrix1, matrix2) => {
             }
             row.push(sum);
         }
-        product_matrix.unshift(row);
+        product_matrix.push(row);
     }
  
     return product_matrix;
